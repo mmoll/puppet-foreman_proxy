@@ -15,6 +15,21 @@ describe 'Scenario: install foreman-proxy' do
     <<-EOS
     # Workarounds
 
+    ## Disable installing recommended and suggested packages
+    if $::osfamily == 'Debian' {
+      contain apt
+
+      apt::conf { 'norecommends':
+        ensure   => present,
+        content  => "Apt::Install-Recommends 0;\nApt::AutoRemove::InstallRecommends 1;\n"
+      }
+
+      apt::conf { 'nosuggests':
+        ensure   => present,
+        content  => "Apt::Install-Suggests 0;\nApt::AutoRemove::InstallSuggests 1;\n"
+      }
+    }
+
     ## Ensure repos are present before installing
     Yumrepo <| |> -> Package <| |>
 
