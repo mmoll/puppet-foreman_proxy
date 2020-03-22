@@ -1,6 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe 'Scenario: install foreman-proxy', unless: ENV['BEAKER_HYPERVISOR'] == 'docker'  do
+describe 'Scenario: install foreman-proxy' do
   before(:context) do
     case os[:family]
     when /redhat|fedora/
